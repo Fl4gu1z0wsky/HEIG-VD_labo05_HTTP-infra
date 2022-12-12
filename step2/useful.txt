@@ -1,0 +1,42 @@
+docker exec -it [name] /bin/bash -> cmd to execute
+docker images -> pour voir toutes les images construites
+
+sudo docker build -t node . -> create image in this directory
+
+sudo docker run -dit -p 8080:80 node -> -d = background
+
+NODE:
+https://hub.docker.com/_/node
+https://nodejs.org/en/ version 18.12.1 stable
+
+On utilise l'utilitaire npm sous src:
+npm init
+package name> students
+version> 1.0.0
+description> Just a demo
+author> Flavio Sovilla
+npm install --save chance -> rajoute le package chance dans le JSON (https://chancejs.com/)
+(on enregistre le module chance pur générer des données aléatoires)
+
+touch index.js pour créer le fichier et on le modifie
+docker exec -it [name] /bin/bash -> Et on peut retrouver nos fichiers dans /opt/app
+sudo docker run node et lance notre node.js et on voit les noms
+
+on retourne dans src:
+npm install express --save (ajoute la dépendance)
+On modifie le index.js
+node index.js et on se connecte sur localhost:PORT en envoyant des requêtes
+
+
+Article à lire: https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/
+Express.js framwork (module npm): https://expressjs.com/
+npm install express --save
+Getting started -> hello world pour la base
+Getting started -> routing pour les renvois des demandes
+
+PAS UTILISE ICI: npm install express-generator -g (global, outil à utiliser -> express -h)
+
+
+
+
+
