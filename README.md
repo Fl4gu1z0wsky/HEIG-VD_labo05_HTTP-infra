@@ -33,6 +33,41 @@ By doing that, you go directly under /var/www/html, this is where are your docke
 If you want, you can navigate wherever you want in your docker container and modify what you want.    
 
 ## Step 2: Dynamic HTTP server with express.js
+For this part, we create a Node server with docker from https://hub.docker.com/_/node. We have our Dockerfile [here](https://github.com/Fl4gu1z0wsky/HEIG-VD_labo05_HTTP-infra/tree/main/step1/apache-php-image).    
+    
+We use npm that is a utility to install package dependencies with our node server.
+We have to create a src file and go under it, then:
+```sh
+npm init
+package name> students
+version> 1.0.0
+description> Just a demo
+author> [your name]
+```
+This will install npm.    
+Now we can add [chance](https://chancejs.com/) that will generate random values:  
+```sh
+npm install --save chance
+```
+Finally, we can install express that will create files and dependencies:
+```sh
+npm install express --save
+```
+Now we need to add our index.js to add some stuff in there so the server will do something:
+```sh
+touch index.js
+```
+And we can modify it. You can retrieve our file [here](https://github.com/Fl4gu1z0wsky/HEIG-VD_labo05_HTTP-infra/blob/step2/step2/express-image/src/index.js).      
+The purpose here, is to send some requests with the help of some files:     
+https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/ (Article to help with http requests)       
+https://expressjs.com/ (This is a framework we can work with)      
+      
+Finally, we can try our app by launching our server from the src/ directory and lauch index.js:
+```sh
+node index.js
+```
+Now go to http://localhost:3000 and it will receive random request from the node server.
+
 ## Step 3: Docker compose to build the infrastructure
 ## Step 4: Reverse proxy with Traefik
 ## Step 4a: Dynamic cluster management
