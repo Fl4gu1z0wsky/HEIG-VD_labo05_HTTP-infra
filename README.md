@@ -81,7 +81,6 @@ Now go to http://localhost:8080 and it will receive random JSON response from th
 [{"name":"Ralph McKenzie","life":17,"strenght":4},{"name":"Lillian Brady","life":13,"strenght":5}]
 ```
 
-## Step 2: Dynamic HTTP server with express.js
 ## Step 3: Docker compose to build the infrastructure
 ## Step 4: Reverse proxy with Traefik
 ## Step 4a: Dynamic cluster management
