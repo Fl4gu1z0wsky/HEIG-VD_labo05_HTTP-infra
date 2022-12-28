@@ -69,9 +69,9 @@ node index.js
 Now go to http://localhost:3000 and it will receive random request from the node server.
 
 ## Step 3: Docker compose to build the infrastructure
-This step is quite easy. You just need to have your Docker images ready to use (the one we created at step 1 and 2).     
-Make sure you get the right paths in your [docker-compose.yml](https://github.com/Fl4gu1z0wsky/HEIG-VD_labo05_HTTP-infra/blob/step3/step3/docker-compose/docker-compose.yml) and the corrects images' name. If you named them differently, just correct their name.    
-Then you can launch your docker compose to run our 2 containes:
+This step is quite easy. You just need to run Docker compose.    
+Make sure you get the right paths in your [docker-compose.yml](https://github.com/Fl4gu1z0wsky/HEIG-VD_labo05_HTTP-infra/blob/step3/step3/docker-compose.yml)        
+Then you can launch your docker compose to run our 2 containers:
 ```sh
 docker-compose up -d
 ```
