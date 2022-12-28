@@ -111,12 +111,12 @@ Next, we can simply run our docker compose and everything will start as wished:
 docker-compose up -d
 ```  
 **How does a reverse proxy improve security?**       
-**Encryption**: A reverse proxy can encrypt the traffic between clients and the backend servers using SSL/TLS, which helps to protect sensitive data from being intercepted by attackers.       
-**Access control**: A reverse proxy can be configured to require authentication before allowing clients to access the backend servers. This can help to prevent unauthorized access to sensitive resources.       
-**Denial of service (DoS) protection**: A reverse proxy can absorb the impact of DoS attacks, mitigating the risk of backend servers being overwhelmed and unavailable.     
-**Load balancing**: A reverse proxy can distribute incoming requests evenly among the backend servers, improving the performance and availability of the application.    
-**Web application firewall (WAF)**: A reverse proxy can include a WAF, which can filter out malicious traffic and protect against common web-based attacks such as SQL injection and cross-site scripting (XSS).       
-**Hide backend servers**: A reverse proxy can hide the IP addresses of the backend servers from the client, making it more difficult for attackers to target those servers directly.     
+- **Encryption**: A reverse proxy can encrypt the traffic between clients and the backend servers using SSL/TLS, which helps to protect sensitive data from being intercepted by attackers.       
+- **Access control**: A reverse proxy can be configured to require authentication before allowing clients to access the backend servers. This can help to prevent unauthorized access to sensitive resources.       
+- **Denial of service (DoS) protection**: A reverse proxy can absorb the impact of DoS attacks, mitigating the risk of backend servers being overwhelmed and unavailable.     
+- **Load balancing**: A reverse proxy can distribute incoming requests evenly among the backend servers, improving the performance and availability of the application.    
+- **Web application firewall (WAF)**: A reverse proxy can include a WAF, which can filter out malicious traffic and protect against common web-based attacks such as SQL injection and cross-site scripting (XSS).       
+- **Hide backend servers**: A reverse proxy can hide the IP addresses of the backend servers from the client, making it more difficult for attackers to target those servers directly.     
 ## Step 4a: Dynamic cluster management
 Nothing much to do here. We just add:
 ```sh
