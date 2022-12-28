@@ -69,6 +69,21 @@ node index.js
 Now go to http://localhost:3000 and it will receive random request from the node server.
 
 ## Step 3: Docker compose to build the infrastructure
+This step is quite easy. You just need to have your Docker images ready to use (the one we created at step 1 and 2).     
+Make sure you get the right paths in your [docker-compose.yml](https://github.com/Fl4gu1z0wsky/HEIG-VD_labo05_HTTP-infra/blob/step3/step3/docker-compose/docker-compose.yml) and the corrects images' name. If you named them differently, just correct their name.    
+Then you can launch your docker compose to run our 2 containes:
+```sh
+docker-compose up -d
+```
+*The -d will run docker-compose in background*      
+Next, you can see your 2 containers online at:           
+- http://localhost:8080/      
+- http://localhost:8081/      
+If you want to stop your containers just enter:
+```sh
+docker-compose stop
+```    
+     
 ## Step 4: Reverse proxy with Traefik
 ## Step 4a: Dynamic cluster management
 ## Step 5: AJAX requests with JQuery
