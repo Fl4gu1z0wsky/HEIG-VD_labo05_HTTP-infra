@@ -16,11 +16,11 @@ We only need the dist directory and can put it under our src/ directory.
 I changed the title from src/dist/index.html from "Greyscale" to "My DAI Project".      
 Now we can build our image with:
 ```sh
-sudo docker build -t apache_php .
+docker build -t apache_php .
 ```
 And run it:
 ```sh
-sudo docker run -dit -p 8080:80 apache_php
+docker run -dit -p 8080:80 apache_php
 ```
 And we can find our apache/PHP page under http://127.0.0.1:8080/.   
      
@@ -33,7 +33,7 @@ By doing that, you go directly under /var/www/html, this is where are your docke
 If you want, you can navigate wherever you want in your docker container and modify what you want.    
 
 ## Step 2: Dynamic HTTP server with express.js
-For this part, we create a Node server with docker from https://hub.docker.com/_/node. We have our Dockerfile [here](https://github.com/Fl4gu1z0wsky/HEIG-VD_labo05_HTTP-infra/tree/main/step1/apache-php-image).    
+For this part, we create a Node server with docker from https://hub.docker.com/_/node. We have our Dockerfile [here](https://github.com/Fl4gu1z0wsky/HEIG-VD_labo05_HTTP-infra/blob/main/step2/express-image/Dockerfile).    
     
 We use npm that is a utility to install package dependencies with our node server.
 We have to create a src file and go under it, then:
@@ -66,7 +66,20 @@ Finally, we can try our app by launching our server from the src/ directory and 
 ```sh
 node index.js
 ```
-Now go to http://localhost:3000 and it will receive random request from the node server.
+When our index.js works, we can launch our container with the dynmaic website.      
+First, we create our image:
+```sh
+docker build -t node .
+```
+Now we can run our container:
+```sh
+docker run -dit -p 8080:3000 node
+```
+*Note that we bind the port 3000 from our app to the port 8080 for the localhost.*        
+Now go to http://localhost:8080 and it will receive random JSON response from the node server like this:   
+```sh
+[{"name":"Ralph McKenzie","life":17,"strenght":4},{"name":"Lillian Brady","life":13,"strenght":5}]
+```
 
 ## Step 3: Docker compose to build the infrastructure
 ## Step 4: Reverse proxy with Traefik
