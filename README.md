@@ -98,7 +98,33 @@ docker-compose stop
 ```    
      
 ## Step 4: Reverse proxy with Traefik
+First, https://doc.traefik.io/traefik/getting-started/quick-start/ is good ressource to start. Copying and pasting the first content will give us a simple traefik to open with docker compose.     
+Next, we need to redirect the traffic from http://localhost to our static website and http://localhost/api to our dynamic website.     
+For that, we will use:
+```sh
+"traefik.http.routers.web-static.rule=Host(`localhost`)"
+"traefik.http.routers.web-dynamic.rule=(Host(`localhost`) && PathPrefix(`/api`))"
+```
+This will tell Traefik to redirect our request to the website we want.     
+Next, we can simply run our docker compose and everything will start as wished:
+```sh
+docker-compose up -d
+```  
+**How does a reverse proxy improve security?**       
+**Encryption**: A reverse proxy can encrypt the traffic between clients and the backend servers using SSL/TLS, which helps to protect sensitive data from being intercepted by attackers.       
+**Access control**: A reverse proxy can be configured to require authentication before allowing clients to access the backend servers. This can help to prevent unauthorized access to sensitive resources.       
+**Denial of service (DoS) protection**: A reverse proxy can absorb the impact of DoS attacks, mitigating the risk of backend servers being overwhelmed and unavailable.     
+**Load balancing**: A reverse proxy can distribute incoming requests evenly among the backend servers, improving the performance and availability of the application.    
+**Web application firewall (WAF)**: A reverse proxy can include a WAF, which can filter out malicious traffic and protect against common web-based attacks such as SQL injection and cross-site scripting (XSS).       
+**Hide backend servers**: A reverse proxy can hide the IP addresses of the backend servers from the client, making it more difficult for attackers to target those servers directly.     
 ## Step 4a: Dynamic cluster management
+Nothing much to do here. We just add:
+```sh
+deploy:
+     replicas: 2
+```
+This will mount 2 instances of our servers, dynamic ans static.    
+To test it, we can stop one container and try to access the content. It should still be available.
 ## Step 5: AJAX requests with JQuery
 ## Step 6: Load balancing: round-robin and sticky sessions
 ## Step 7: Management UI
