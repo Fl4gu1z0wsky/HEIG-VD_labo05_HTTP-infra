@@ -1,13 +1,13 @@
 services:
   web-static:
     build:
-        dockerfile: ../apache-php-image/Dockerfile
+        dockerfile: ../../apache-php-image/Dockerfile
     ports:
       - "8080:80"
     image: "apache_php"
   web-dynamic:
     build:
-        dockerfile: ../express-image/Dockerfile
+        dockerfile: ../../express-image/Dockerfile
     ports:
       - "8081:3000"
     image: "node"
