@@ -5,18 +5,20 @@ services:
     ports:
       - "80"
     labels:
-      - "traefik.http.routers.web-static.rule=Host(`localhost`)"
+      - "traefik.http.routers.web-static.rule=Host(`localhost`)"  
     deploy:
-            replicas: 2
+      replicas: 2
   web-dynamic:
     build:
         ../step2/express-image
     ports:
-      - "3000"
+      - 3000
     labels: 
-      - "traefik.http.routers.web-dynamic.rule=(Host(`localhost`) && PathPrefix(`/api`))"
+      - "traefik.http.routers.web-dynamic.rule=Host(`localhost`) && PathPrefix(`/api`)"
+      - "traefik.http.middlewares.dynamic-strip.stripprefix.prefixes=/api"
+      - "traefik.http.routers.web-dynamic.middlewares=dynamic-strip@docker"
     deploy:
-            replicas: 2
+      replicas: 2
   reverse-proxy:
     # The official v2 Traefik docker image
     image: traefik:v2.9
