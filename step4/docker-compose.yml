@@ -12,7 +12,7 @@ services:
     build:
         ../step2/express-image
     ports:
-      - 3000
+      - "3000"
     labels: 
       - "traefik.http.routers.web-dynamic.rule=Host(`localhost`) && PathPrefix(`/api`)"
       - "traefik.http.middlewares.dynamic-strip.stripprefix.prefixes=/api"
