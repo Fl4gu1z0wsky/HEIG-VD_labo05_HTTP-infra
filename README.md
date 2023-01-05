@@ -127,6 +127,12 @@ Not a lot of work to do here, you can find the script [here](https://github.com/
 ```sh
 docker build up
 ```
-It will launch the containers and you just have to go to http://localhost
+It will launch the containers and you just have to go to http://localhost       
+To add the script on our static page, we added at the end:
+```sh
+<!-- Custom script to try AJAX -->
+<script src="js/ajax_fun.js"></script>
+```
+This will launch our function from the file [ajax_fun.js](https://github.com/Fl4gu1z0wsky/HEIG-VD_labo05_HTTP-infra/blob/main/step5/apache-php-image/src/dist/js/ajax_fun.js).
 ## Step 6: Load balancing: round-robin and sticky sessions
 ## Step 7: Management UI
