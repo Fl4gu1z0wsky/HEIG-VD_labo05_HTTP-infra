@@ -123,5 +123,10 @@ deploy:
 This will mount 2 instances of our servers, dynamic ans static.    
 To test it, we can stop one container and try to access the content. It should still be available.
 ## Step 5: AJAX requests with JQuery
+Not a lot of work to do here, you can find the script [here](https://github.com/Fl4gu1z0wsky/HEIG-VD_labo05_HTTP-infra/blob/main/step5/apache-php-image/src/dist/js/ajax_fun.js) that is an API fetch request on our dynamic page to retrieve our information and we then manage to write it on our static page. To launch the page and try, you can mount a docker compose from the folder step5:
+```sh
+docker build up
+```
+It will launch the containers and you just have to go to http://localhost
 ## Step 6: Load balancing: round-robin and sticky sessions
 ## Step 7: Management UI
