@@ -146,7 +146,7 @@ You can go on your docker console under the logs and see that even if you close 
 ```sh
 2023-01-05 10:16:49 172.18.0.4 - - [05/Jan/2023:09:16:49 +0000] "GET / HTTP/1.1" 200 3286 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
 ```
-**This is an example of the log from our docker console from our static web 2. And there is nothing from the static web 1 since the session is not stick to it**      
+*This is an example of the log from our docker console from our static web 2. And there is nothing from the static web 1 since the session is not stick to it.*     
 Since we did not change anything on our dynamic website, it is still by default with the round-robin. We can easily see it under the docker console log as both of our dynamic containers receive request from our static page.    
 To launch the containers, you can just do the next command in the step6 folder:
 ```sh
