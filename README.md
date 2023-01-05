@@ -125,7 +125,7 @@ To test it, we can stop one container and try to access the content. It should s
 ## Step 5: AJAX requests with JQuery
 Not a lot of work to do here, you can find the script [here](https://github.com/Fl4gu1z0wsky/HEIG-VD_labo05_HTTP-infra/blob/main/step5/apache-php-image/src/dist/js/ajax_fun.js) that is an API fetch request on our dynamic page to retrieve our information and we then manage to write it on our static page. To launch the page and try, you can mount a docker compose from the folder step5:
 ```sh
-docker build up
+docker compose up
 ```
 It will launch the containers and you just have to go to http://localhost       
 To add the script on our static page, we added at the end:
@@ -133,6 +133,24 @@ To add the script on our static page, we added at the end:
 <!-- Custom script to try AJAX -->
 <script src="js/ajax_fun.js"></script>
 ```
-This will launch our function from the file [ajax_fun.js](https://github.com/Fl4gu1z0wsky/HEIG-VD_labo05_HTTP-infra/blob/main/step5/apache-php-image/src/dist/js/ajax_fun.js).
+This will launch our function from the file [ajax_fun.js](https://github.com/Fl4gu1z0wsky/HEIG-VD_labo05_HTTP-infra/blob/main/step5/apache-php-image/src/dist/js/ajax_fun.js).     
+
 ## Step 6: Load balancing: round-robin and sticky sessions
+First, we have to add in our [docker-compose.yml](https://github.com/Fl4gu1z0wsky/HEIG-VD_labo05_HTTP-infra/blob/main/step6/docker-compose.yml) the following line under our web-static server under labels:
+```sh
+- "traefik.http.services.static.loadbalancer.sticky.cookie=true"
+- "traefik.http.services.static.loadbalancer.sticky.cookie.name=MyStaticCookie"
+```
+This will create a cookie that stick to the user and Traefik redirect your session (with the help of your cookie) to the same instance every time. 
+You can go on your docker console under the logs and see that even if you close your page and open it again, the requests stays for the same static-web:
+```sh
+2023-01-05 10:16:49 172.18.0.4 - - [05/Jan/2023:09:16:49 +0000] "GET / HTTP/1.1" 200 3286 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
+```
+**This is an example of the log from our docker console from our static web 2. And there is nothing from the static web 1 since the session is not stick to it**      
+Since we did not change anything on our dynamic website, it is still by default with the round-robin. We can easily see it under the docker console log as both of our dynamic containers receive request from our static page.    
+To launch the containers, you can just do the next command in the step6 folder:
+```sh
+docker compose up
+```
+
 ## Step 7: Management UI
