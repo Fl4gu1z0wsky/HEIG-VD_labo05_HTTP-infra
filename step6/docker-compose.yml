@@ -1,0 +1,40 @@
+services:
+  web-static:
+    build:
+        ./apache-php-image
+    image:
+        web-static/apache_php
+    ports:
+      - "80"
+    labels:
+      - "traefik.http.routers.web-static.rule=Host(`localhost`)"  
+      - "traefik.http.services.static.loadbalancer.sticky.cookie=true"
+      - "traefik.http.services.static.loadbalancer.sticky.cookie.name=MyStaticCookie"
+    deploy:
+      replicas: 2
+  web-dynamic:
+    build:
+        ./express-image
+    image:
+        web-dynamic/node
+    ports:
+      - "3000"
+    labels: 
+      - "traefik.http.routers.web-dynamic.rule=Host(`localhost`) && PathPrefix(`/api`)"
+      - "traefik.http.middlewares.dynamic-strip.stripprefix.prefixes=/api"
+      - "traefik.http.routers.web-dynamic.middlewares=dynamic-strip@docker"
+    deploy:
+      replicas: 2
+  reverse-proxy:
+    # The official v2 Traefik docker image
+    image: traefik:v2.9
+    # Enables the web UI and tells Traefik to listen to docker
+    command: --api.insecure=true --providers.docker
+    ports:
+      # The HTTP port
+      - "80:80"
+      # The Web UI (enabled by --api.insecure=true)
+      - "8082:8080"
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
