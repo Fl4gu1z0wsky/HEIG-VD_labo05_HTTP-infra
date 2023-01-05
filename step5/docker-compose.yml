@@ -2,15 +2,19 @@ services:
   web-static:
     build:
         ./apache-php-image
+    image:
+        web-static/apache_php
     ports:
       - "80"
     labels:
       - "traefik.http.routers.web-static.rule=Host(`localhost`)"  
     deploy:
-      replicas: 1
+      replicas: 2
   web-dynamic:
     build:
         ./express-image
+    image:
+        web-dynamic/node
     ports:
       - "3000"
     labels: 
@@ -18,7 +22,7 @@ services:
       - "traefik.http.middlewares.dynamic-strip.stripprefix.prefixes=/api"
       - "traefik.http.routers.web-dynamic.middlewares=dynamic-strip@docker"
     deploy:
-      replicas: 1
+      replicas: 2
   reverse-proxy:
     # The official v2 Traefik docker image
     image: traefik:v2.9
