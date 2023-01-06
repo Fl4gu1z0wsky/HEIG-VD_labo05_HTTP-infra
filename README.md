@@ -154,9 +154,9 @@ docker compose up
 ```
 
 ## Step 7: Management UI
-For this step, we decided to use Portainer as the management interface for our Docker infrastructure. Portainer is an open-source Docker container management solution that provides a simple and intuitive web interface for managing and monitoring all of your Docker infrastructure.
+For this step, we choosed to use Portainer as the management interface for our Docker infrastructure. Portainer is an open-source Docker container management solution that provides a easy and intuitive web interface for managing and monitoring all of your Docker infrastructure.
 
-To integrate Portainer into our project, we added a Portainer container to our docker-compose.yml file:
+To integrate Portainer into our project , we added a Portainer container to our docker-compose.yml file:
 
 ```
 portainer:
@@ -167,13 +167,13 @@ portainer:
   ports:
     - "9000:9000"
 ```
-This container is based on the official Portainer image and is configured to mount the Docker socket and a data volume named "portainer_data". We also exposed port 9000 to allow access to the Portainer web interface from our browser.
+This container is based on the official Portainer image.  It is configured to mount a Docker socket, with a data volume called portainer_data. We also decide to use port 9000, so it will allow access to the Portainer web interface from a browser.
 
-To start Portainer and our other containers, we ran the following command:
+To start our other containers and portainer we can run the following command :
 
 ```
 $ docker-compose up
 ```
-Once all the containers were started, we opened our browser and accessed the URL http://localhost:9000. We followed the on-screen instructions to set up Portainer and connect to our Docker instance.
+Once all the containers were started, we opened our browser and accessed http://localhost:9000 . We followed the onscreen instructions to set up Portainer admin user, and connect to our Docker instance.
 
-With Portainer, we now have a complete management interface for our Docker infrastructure. We can view a list of our containers and their information, start, stop, or restart our containers, add or remove containers, access the logs of our containers, manage the data volumes of our containers, configure container networks, and much more.
+With Portainer, we have a complete management interface for our Docker infrastructure. We can view a list of our containers and their information, start, stop or restart our containers, add or remove containers, access the logs of our containers, manage the data volumes of our containers, configure container networks or much more.
