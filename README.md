@@ -107,9 +107,15 @@ labels:
 ```
 And we added the following line on our reverse proxy to enable the web UI and tells Traefik to listent to docker:
 ```sh
-command: --api.insecure=true --providers.docke
+command: --api.insecure=true --providers.docker
 ```
 This will tell Traefik to redirect our request to the website we want.     
+We finally added the next line:
+```sh
+volumes:
+ - /var/run/docker.sock:/var/run/docker.sock
+```
+This will let Traefik listen to the Docker event.  
 Next, we can simply run our docker compose and everything will start as wished:
 ```sh
 docker-compose up -d
