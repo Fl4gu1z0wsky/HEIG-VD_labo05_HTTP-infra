@@ -174,8 +174,8 @@ portainer:
   ports:
     - "9000:9000"
 ```
-This container is based on the official Portainer image.  It is configured to mount a Docker socket, with a data volume called portainer_data. We also decide to use port 9000, so it will allow access to the Portainer web interface from a browser.
-
+This container is based on the official Portainer image.  It is configured to mount a Docker socket, with a data volume called portainer_data. This will let us connect to our local Docker containers and manage them easily.  
+We also decide to use port 9000, so it will allow access to the Portainer web interface from a browser.  
 To start our other containers and portainer we can run the following command :
 
 ```
