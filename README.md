@@ -57,7 +57,7 @@ Now we need to add our index.js to add some stuff in there so the server will do
 ```sh
 touch index.js
 ```
-And we can modify it. You can retrieve our file [here](https://github.com/Fl4gu1z0wsky/HEIG-VD_labo05_HTTP-infra/blob/step2/step2/express-image/src/index.js).      
+And we can modify it. You can retrieve our file [here](https://github.com/Fl4gu1z0wsky/HEIG-VD_labo05_HTTP-infra/blob/step2/step2/express-image/src/index.js). This is a simple fight between 2 knights. And we return the state after this fight.     
 The purpose here, is to send some requests with the help of some files:     
 https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/ (Article to help with http requests)       
 https://expressjs.com/ (This is a framework we can work with)      
@@ -82,6 +82,8 @@ Now go to http://localhost:8080 and it will receive random JSON response from th
 ```
 
 ## Step 3: Docker compose to build the infrastructure
+We created a [docker compose file](https://github.com/Fl4gu1z0wsky/HEIG-VD_labo05_HTTP-infra/blob/main/step3/docker-compose.yml).
+You just need to enter the following command to launch it.
 ```sh
 docker-compose up -d
 ```
@@ -97,16 +99,22 @@ docker-compose stop
 ## Step 4: Reverse proxy with Traefik
 First, https://doc.traefik.io/traefik/getting-started/quick-start/ is good ressource to start. Copying and pasting the first content will give us a simple traefik to open with docker compose.     
 Next, we need to redirect the traffic from http://localhost to our static website and http://localhost/api to our dynamic website.     
-For that, we will use:
+For that, we added the 2 next lines on the dynamic container:
 ```sh
-"traefik.http.routers.web-static.rule=Host(`localhost`)"
-"traefik.http.routers.web-dynamic.rule=(Host(`localhost`) && PathPrefix(`/api`))"
+labels:
+ - "traefik.http.routers.web-static.rule=Host(`localhost`)"
+ - "traefik.http.routers.web-dynamic.rule=(Host(`localhost`) && PathPrefix(`/api`))"
+```
+And we added the following line on our reverse proxy to enable the web UI and tells Traefik to listent to docker:
+```sh
+command: --api.insecure=true --providers.docke
 ```
 This will tell Traefik to redirect our request to the website we want.     
 Next, we can simply run our docker compose and everything will start as wished:
 ```sh
 docker-compose up -d
 ```  
+You can retrieve the docker compose file [here](https://github.com/Fl4gu1z0wsky/HEIG-VD_labo05_HTTP-infra/blob/main/step4/docker-compose.yml).
 **How does a reverse proxy improve security?**       
 - **Encryption**: A reverse proxy can encrypt the traffic between clients and the backend servers using SSL/TLS, which helps to protect sensitive data from being intercepted by attackers.       
 - **Access control**: A reverse proxy can be configured to require authentication before allowing clients to access the backend servers. This can help to prevent unauthorized access to sensitive resources.       
@@ -115,13 +123,13 @@ docker-compose up -d
 - **Web application firewall (WAF)**: A reverse proxy can include a WAF, which can filter out malicious traffic and protect against common web-based attacks such as SQL injection and cross-site scripting (XSS).       
 - **Hide backend servers**: A reverse proxy can hide the IP addresses of the backend servers from the client, making it more difficult for attackers to target those servers directly.     
 ## Step 4a: Dynamic cluster management
-Nothing much to do here. We just add:
+Nothing much to do here. We just add the following lines to our [docker compose file](https://github.com/Fl4gu1z0wsky/HEIG-VD_labo05_HTTP-infra/blob/main/step4/docker-compose.yml):
 ```sh
 deploy:
      replicas: 2
 ```
 This will mount 2 instances of our servers, dynamic ans static.    
-To test it, we can stop one container and try to access the content. It should still be available.
+To test it, we can stop one container and try to access the content. It should still be available. Or you can go to the log file under your docker console and see which server respond to the query.
 ## Step 5: AJAX requests with JQuery
 Not a lot of work to do here, you can find the script [here](https://github.com/Fl4gu1z0wsky/HEIG-VD_labo05_HTTP-infra/blob/main/step5/apache-php-image/src/dist/js/ajax_fun.js) that is an API fetch request on our dynamic page to retrieve our information and we then manage to write it on our static page. To launch the page and try, you can mount a docker compose from the folder step5:
 ```sh
@@ -136,7 +144,7 @@ To add the script on our static page, we added at the end:
 This will launch our function from the file [ajax_fun.js](https://github.com/Fl4gu1z0wsky/HEIG-VD_labo05_HTTP-infra/blob/main/step5/apache-php-image/src/dist/js/ajax_fun.js).     
 
 ## Step 6: Load balancing: round-robin and sticky sessions
-First, we have to add in our [docker-compose.yml](https://github.com/Fl4gu1z0wsky/HEIG-VD_labo05_HTTP-infra/blob/main/step6/docker-compose.yml) the following line under our web-static server under labels:
+First, we have to add in our [docker compose file](https://github.com/Fl4gu1z0wsky/HEIG-VD_labo05_HTTP-infra/blob/main/step6/docker-compose.yml) the following line under our web-static server under labels:
 ```sh
 - "traefik.http.services.static.loadbalancer.sticky.cookie=true"
 - "traefik.http.services.static.loadbalancer.sticky.cookie.name=MyStaticCookie"
@@ -154,10 +162,9 @@ docker compose up
 ```
 
 ## Step 7: Management UI
-For this step, we choosed to use Portainer as the management interface for our Docker infrastructure. Portainer is an open-source Docker container management solution that provides a easy and intuitive web interface for managing and monitoring all of your Docker infrastructure.
+For this step, we chose to use [Portainer](https://hub.docker.com/r/portainer/portainer-ce) as the management interface for our Docker infrastructure. Portainer is an open-source Docker container management solution that provides a easy and intuitive web interface for managing and monitoring all of your Docker infrastructure.
 
-To integrate Portainer into our project , we added a Portainer container to our docker-compose.yml file:
-
+To integrate Portainer into our project , we added a Portainer container to our [docker compose file](https://github.com/Fl4gu1z0wsky/HEIG-VD_labo05_HTTP-infra/blob/main/step7/docker-compose.yml):
 ```
 portainer:
   image: portainer/portainer
